@@ -1,3 +1,5 @@
+# Pokémon are registered trademarks of Nintendo and Game Freak.
+
 require "json"
 require "uri"
 

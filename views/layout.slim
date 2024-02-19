@@ -8,7 +8,7 @@ html lang='en'
     script src='/js/bootstrap.bundle.min.js' type='text/javascript'
 
   body.d-flex.align-items-center.bg-light
-    main.container.container-sm.mx-auto
+    .container
 
       .d-flex.justify-content-center
         h1.mb-0 style='font-family: "Anta";'
@@ -16,8 +16,9 @@ html lang='en'
             img src=sprite(poke('item', 'poke-ball').sprites.default) style="width: 50px;"
             | Pokedex
             img src=sprite(poke('item', 'poke-ball').sprites.default) style="width: 50px;"
+
       .d-flex.justify-content-center
         | powerd by
-        a.text-decoration-none.link-dark.ms-1 href='pokeapi.co' PokeAPI
+        a.text-decoration-none.link-dark.ms-1 href='https://pokeapi.co' PokeAPI
 
       == yield
