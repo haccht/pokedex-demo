@@ -8,7 +8,9 @@ source "https://rubygems.org"
 
 gem "sinatra", "~> 4.0"
 gem "slim", "~> 5.2"
+
 gem "puma", "~> 6.4"
+gem "procsd", "~> 0.5.5"
 
 gem "redis", "~> 5.1"
 gem "httpclient", "~> 2.8"
