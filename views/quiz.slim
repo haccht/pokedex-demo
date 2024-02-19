@@ -1,0 +1,32 @@
+.d-flex.justify-content-center.my-4
+  div style="width: 25em;"
+
+    .card.shadow-sm.mb-3
+      .d-flex.justify-content-center
+        img.card-img-top.m-2 src=sprite(@pokemon.sprites.front_default) style="width: 250px; height: 250px; #{'filter: brightness(0%);' if params[:hard]}"
+      .card-body
+        p.my-0 = @genera
+        p 高さ: #{@pokemon.height*10} cm, 重さ: #{@pokemon.weight/10.0} kg
+
+    - if @ok == true
+      .alert.alert-success
+        .d-flex.justify-content-between
+          span せいかい！#{translate(@species.names, 'ja', 'ja-Hrkt').name}だね
+          a.text-decoration-none href="/quiz" べつのクイズ
+
+    - if @ok == false && @answer != ""
+      .alert.alert-danger
+        .d-flex.justify-content-between
+          span ちがうよ！#{@answer}ではないよ
+          a.text-decoration-none href="/pokemon/#{@species.id}" こたえ
+
+    - if @ok == false || @answer.nil?
+      form action='/quiz' method='POST' style='width: 25em;'
+        label.form-label.ms-2
+          | このポケモンのなまえは？
+        .input-group
+          input type='hidden' name='pokeid' value=@species.id
+          input.form-control type='text' name='answer' value='' autocomplete='off' #placeholder=translate(@species.names, 'en').name
+          button.btn.btn-outline-secondary type='submit'
+            svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lightbulb" viewBox="0 0 16 16"
+              path d="M2 6a6 6 0 1 1 10.174 4.31c-.203.196-.359.4-.453.619l-.762 1.769A.5.5 0 0 1 10.5 13a.5.5 0 0 1 0 1 .5.5 0 0 1 0 1l-.224.447a1 1 0 0 1-.894.553H6.618a1 1 0 0 1-.894-.553L5.5 15a.5.5 0 0 1 0-1 .5.5 0 0 1 0-1 .5.5 0 0 1-.46-.302l-.761-1.77a2 2 0 0 0-.453-.618A5.98 5.98 0 0 1 2 6m6-5a5 5 0 0 0-3.479 8.592c.263.254.514.564.676.941L5.83 12h4.342l.632-1.467c.162-.377.413-.687.676-.941A5 5 0 0 0 8 1"

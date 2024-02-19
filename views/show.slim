@@ -1,0 +1,40 @@
+.d-flex.justify-content-center.my-4
+
+  a.d-flex.align-items-center.text-dark.text-decoration-none.fs-2.px-2 href="/pokemon/#{@previd}"
+    svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16"
+      path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"
+
+  div style="width: 25em;"
+
+    .card.shadow-sm.mb-3
+      .d-flex.justify-content-center
+        img.card-img-top.m-2 src=sprite(@pokemon.sprites.front_default) style="width: 250px; height: 250px"
+      .card-body
+        p.my-0 = @genera
+        p 高さ: #{@pokemon.height*10} cm, 重さ: #{@pokemon.weight/10.0} kg
+
+        p.my-4.text-muted
+          - @flavor.to_s.each_line do |line|
+            span = line
+            br
+
+        hr
+        h4.card-title
+          = translate(@species.names, 'ja', 'ja-Hrkt').name
+          small
+            - @types.each do |type|
+              span.badge.rounded-pill.bg-info.ms-2
+                = translate(type.names, 'ja', 'ja-Hrkt').name
+
+        h6.card-subtitle.text-body-secondary
+          small.me-2 No.#{@species.id}
+          = translate(@species.names, 'en').name
+
+    .m-3.text-end
+      a.text-decoration-none href="/quiz" クイズをみる
+
+  a.d-flex.align-items-center.text-dark.text-decoration-none.fs-2.px-2 href="/pokemon/#{@nextid}"
+    svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16"
+      path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
+
+
