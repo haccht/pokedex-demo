@@ -144,8 +144,8 @@ class PokeApp < Sinatra::Base
 
     response.write(httpget_cached(uri.to_s))
   end
-end
 
-get '/cdn/sureroute-test-object.html' do
-  send_file File.join(settings.root, 'public', 'sureroute-test-object.html')
+  get '/cdn/sureroute-test-object.html' do
+    send_file File.join(settings.public_folder, 'sureroute-test-object.html')
+  end
 end
