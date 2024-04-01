@@ -5,7 +5,8 @@ require "uri"
 
 require "httpclient"
 require "redis"
-require "sinatra"
+require "sinatra/base"
+require "sinatra/cookies"
 
 
 CACHE_TTL = 30*24*60*60
@@ -13,6 +14,8 @@ REDIS_URL = "redis://127.0.0.1:6379/0"
 POKEAPI_V2_URL = "https://pokeapi.co/api/v2/"
 
 class PokeApp < Sinatra::Base
+  helpers Sinatra::Cookies
+
   set :http,  HTTPClient.new
   set :cache, Redis.new(url: REDIS_URL)
 

@@ -15,3 +15,5 @@ gem "procsd", "~> 0.5.5"
 gem "redis", "~> 5.1"
 gem "httpclient", "~> 2.8"
 gem "mutex_m", "~> 0.2.0"
+
+gem "sinatra-contrib", "~> 4.0"
