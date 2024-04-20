@@ -67,7 +67,7 @@ class PokeApp < Sinatra::Base
     total    = poke('pokemon-species').count
     pokeid   = Random.rand(1..total)
 
-    redirect to("/pokemon/#{pokeid}")
+    redirect to("https://#{request.host}/pokemon/#{pokeid}")
   end
 
   get '/pokemon/:pokeid' do
