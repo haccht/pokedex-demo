@@ -2,6 +2,8 @@
 
 require "json"
 require "uri"
+require "logger"
+require 'digest'
 
 require "httpclient"
 require "redis"
@@ -15,6 +17,10 @@ POKEAPI_V2_URL = "https://pokeapi.co/api/v2/"
 
 class PokeApp < Sinatra::Base
   helpers Sinatra::Cookies
+  configure :development, :production do
+    logger = Logger.new($stdout)
+    set :logger, logger
+  end
 
   set :http,  HTTPClient.new
   set :cache, Redis.new(url: REDIS_URL)
@@ -47,7 +53,7 @@ class PokeApp < Sinatra::Base
       uri  = URI(url)
       data = httpget_cached(uri.to_s)
 
-      File.join('/sprites', uri.scheme, uri.host, uri.path)
+      File.join('/img', uri.scheme, uri.host, uri.path)
     end
 
     def translate(items, *langs)
@@ -125,7 +131,7 @@ class PokeApp < Sinatra::Base
     slim :quiz
   end
 
-  get '/sprites/:scheme/:host/*' do
+  get '/img/:scheme/:host/*' do
     uri  = URI::Generic.build(scheme: params[:scheme], host: params[:host], path: "/#{params[:splat].first}")
 
     case File.extname(uri.path).downcase
@@ -149,6 +155,10 @@ class PokeApp < Sinatra::Base
   end
 
   get '/cdn/sureroute-test-object.html' do
-    send_file File.join(settings.public_folder, 'sureroute-test-object.html')
+    send_file File.join(settings.public_folder, 'cdn', 'sureroute-test-object.html')
+  end
+
+  get '/private/*' do
+    send_file File.join(settings.public_folder, params[:splat][0])
   end
 end
