@@ -9,6 +9,7 @@ require "httpclient"
 require "redis"
 require "sinatra/base"
 require "sinatra/cookies"
+require 'sinatra/custom_logger'
 
 
 CACHE_TTL = 30*24*60*60
@@ -17,6 +18,7 @@ POKEAPI_V2_URL = "https://pokeapi.co/api/v2/"
 
 class PokeApp < Sinatra::Base
   helpers Sinatra::Cookies
+  helpers Sinatra::CustomLogger
   configure :development, :production do
     logger = Logger.new($stdout)
     set :logger, logger
@@ -73,6 +75,8 @@ class PokeApp < Sinatra::Base
     total    = poke('pokemon-species').count
     pokeid   = Random.rand(1..total)
 
+    #expires 10*60
+    #cache_control no_store: true, no_cache: true, must_revalidate: true, max_age: 0
     redirect to("https://#{request.host}/pokemon/#{pokeid}"), 302
   end
 
