@@ -49,6 +49,9 @@ class PokeApp < Sinatra::Base
       data = httpget_cached(uri.to_s)
 
       JSON.parse(data, object_class: OpenStruct)
+    rescue
+      settings.cache.del(uri.to_s)
+      poke(*args)
     end
 
     def sprite(url)
